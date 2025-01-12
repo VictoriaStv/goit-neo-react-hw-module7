@@ -13,8 +13,8 @@ const ContactFormSchema = Yup.object().shape({
     .required("Required"),
   number: Yup.string()
     .matches(
-      /^[0-9]{3}-[0-9]{2}-[0-9]{2}$/,
-      "Phone number must be in the format 123-45-67"
+      /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/,
+      "Phone number must be in the format 123-456-7890"
     )
     .required("Required"),
 });
@@ -28,6 +28,7 @@ export default function ContactForm() {
   const dispatch = useDispatch();
   const nameFieldId = useId();
   const numberFieldId = useId();
+
   const handleSubmit = (values, actions) => {
     dispatch(addContact({ name: values.name, number: values.number }));
     actions.resetForm();
@@ -51,6 +52,7 @@ export default function ContactForm() {
             />
             <ErrorMessage className={css.error} name="name" component="span" />
           </label>
+
           <label className={css.label} htmlFor={numberFieldId}>
             Number
             <Field
@@ -58,7 +60,7 @@ export default function ContactForm() {
               className={css.field}
               type="tel"
               name="number"
-              placeholder="123-45-67"
+              placeholder="123-456-7890"
             />
             <ErrorMessage
               className={css.error}
@@ -66,7 +68,8 @@ export default function ContactForm() {
               component="span"
             />
           </label>
-          <button className={css.btn} type="submit" onSubmit={handleSubmit}>
+
+          <button className={css.btn} type="submit">
             Add contact
           </button>
         </Form>
